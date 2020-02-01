@@ -1,17 +1,26 @@
 const
-    express = require('express'),
-    http = require('http')
+    app = require('express')(),
+    http = require('http').createServer(app),
+    io = require('socket.io')(http)
 
-const app = express()
 const port = 8081
-const server = http.createServer(app)
 
 app.get('/', (req, res) => res.json({ error: false, message: 'SES server ok' }))
 
 const startServer = () => {
 
-    server.listen(port, () => {
+    http.listen(port, () => {
         console.log(`SES server started at ${ new Date() } on *:${ port }`)
+    })
+
+    io.on('connection', socket => {
+
+        console.log('a user connected')
+
+        socket.on('disconnect', () => {
+            console.log('user disconnected')
+        })
+
     })
 
 }
