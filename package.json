@@ -18,6 +18,7 @@
   "homepage": "https://github.com/gogbajbobo/iptm-safety-exam-server#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mysql": "^2.18.1",
     "socket.io": "^2.3.0",
     "typeorm": "^0.2.22"
   }
