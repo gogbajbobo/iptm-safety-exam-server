@@ -7,7 +7,9 @@ const port = 8081
 
 app.get('/', (req, res) => res.json({ error: false, message: 'SES server ok' }))
 
-const startServer = () => {
+const startServer = connection => {
+
+    if (!connection) console.error('Have no connection to database')
 
     http.listen(port, () => {
         console.log(`SES server started at ${ new Date() } on *:${ port }`)

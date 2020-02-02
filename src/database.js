@@ -16,7 +16,7 @@ const connectionOptions = {
 
 const connectDatabase = () => {
 
-    typeorm.createConnection(connectionOptions)
+    return typeorm.createConnection(connectionOptions)
         .then(connection => {
 
             console.log(`database connected at ${ new Date() }: ${ connection.name }`)
