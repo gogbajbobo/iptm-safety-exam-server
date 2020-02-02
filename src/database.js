@@ -1,6 +1,6 @@
 const typeorm = require('typeorm')
 const Exam = require('./datamodel/exam')
-const ExamController = require('./controllers/exam')
+// const ExamController = require('./controllers/exam')
 
 
 const connectionOptions = {
@@ -20,10 +20,10 @@ const connectDatabase = () => {
         .then(connection => {
 
             console.log(`database connected at ${ new Date() }: ${ connection.name }`)
-            ExamController.createExam({ title: 'test' })
-                .then(ExamController.getExams)
-                .then(console.log)
-                .catch(console.error)
+            // ExamController.createExam({ title: 'test' })
+            //     .then(ExamController.getExams)
+            //     .then(console.log)
+            //     .catch(console.error)
 
             return connection
 
