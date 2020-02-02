@@ -3,12 +3,16 @@ const Exam = require('../datamodel/exam')
 
 
 const testExam = () => {
+    return saveExam({ title: 'Test Exam 1' })
+}
+
+const saveExam = ({ title }) => {
 
     const connection = typeorm.getConnection('iptm-ses-db')
     const examRepository = connection.getRepository(Exam.Model)
 
     const exam = new Exam.Model()
-    exam.title = 'Test Exam 1'
+    exam.title = title
 
     examRepository.save(exam)
         .then(savedExam => {
@@ -19,7 +23,8 @@ const testExam = () => {
             return examRepository.find()
 
         })
-        .then(allExams => console.log('All exams: ', allExams))
+        .then(console.log)
+        .catch(console.error)
 
 }
 
