@@ -17,10 +17,10 @@ const startServer = connection => {
 
     io.on('connection', socket => {
 
-        console.log('a user connected')
+        console.log(`a user ${ socket.id } connected`)
 
         socket.on('disconnect', () => {
-            console.log('user disconnected')
+            console.log(`user ${ socket.id } disconnected`)
         })
 
     })
