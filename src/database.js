@@ -20,7 +20,12 @@ const connectDatabase = () => {
         .then(connection => {
 
             console.log(`database connected at ${ new Date() }: ${ connection.name }`)
-            ExamController.testExam()
+            ExamController.createExam({ title: 'test' })
+                .then(ExamController.getExams)
+                .then(console.log)
+                .catch(console.error)
+
+            return connection
 
         })
         .catch(error => {
