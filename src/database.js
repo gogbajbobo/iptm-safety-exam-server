@@ -1,5 +1,5 @@
 const typeorm = require('typeorm')
-const Exam = require('./datamodel/Exam')
+const Exam = require('./datamodel/exam')
 
 
 const connectionOptions = {
