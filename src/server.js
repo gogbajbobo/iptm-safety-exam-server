@@ -26,7 +26,7 @@ const startServer = connection => {
         socket.on('message', message => console.log(`${ socket.id } message: ${ message }`))
         socket.on(
             'login',
-            data => console.log(`${ socket.id } login data: ${ JSON.stringify(data, null, '\t') }`)
+            data => console.log(`${ socket.id } login: ${ JSON.stringify(data, null, '\t') }`)
         )
 
     })
