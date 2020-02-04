@@ -23,7 +23,12 @@ const startServer = connection => {
             console.log(`user ${ socket.id } disconnected`)
         })
 
-        socket.on('message', message => console.log(`${ socket.id } message: ${ message }`))
+        socket.on('message', message => {
+
+            console.log(`${ socket.id } message: ${ message }`)
+            io.emit('message', message)
+
+        })
         socket.on(
             'login',
             data => console.log(`${ socket.id } login: ${ JSON.stringify(data, null, '\t') }`)
