@@ -11,7 +11,12 @@ const checkJWT = JWTObject => {
 const checkCredentials = ({ username, password }) => {
 
     const user = UsersController.authUser({ username, password })
-    return user
+    if (!user)
+        return null
+
+    const accessToken = tokenService.invokeToken(user)
+    return { ...user, ...accessToken }
+
 }
 
 const authSocket = socket => {
