@@ -1,8 +1,7 @@
 const
     socketIO = require('socket.io'),
     { SOCKET, listenEvents } = require('../socket/events'),
-    auth = require('../services/auth'),
-    cookie = require('cookie')
+    auth = require('../services/auth')
 
 
 const initSocket = http => {
@@ -11,22 +10,7 @@ const initSocket = http => {
 
     io.use((socket, next) => {
 
-        const { handshake } = socket
-
-        const { headers } = handshake
-        const cookieObject = cookie.parse(headers.cookie)
-        const { authJWT } = cookieObject
-
-        if (authJWT) {
-
-            socket.user = auth.checkJWT(authJWT)
-            return next()
-
-        }
-
-        const { query } = handshake
-        socket.user = auth.checkCredentials(query)
-
+        auth.authSocket(socket)
         next()
 
     })
