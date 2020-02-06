@@ -1,10 +1,13 @@
-const authUser = ({ username, password }) => {
+const checkJWT = JWTObject => {
+    return JWTObject ? { username: 'username', roles: ['role'] } : null
+}
 
-    if (username === 'user') return { username, role: 'user' }
-    if (username === 'admin') return { username, role: 'admin' }
+const checkCredentials = ({ username, password }) => {
 
-    return { error: true }
+    if (username === 'user') return { username, roles: ['user'] }
+    if (username === 'admin') return { username, roles: ['admin'] }
+    return null
 
 }
 
-module.exports = { authUser }
+module.exports = { checkJWT, checkCredentials }
