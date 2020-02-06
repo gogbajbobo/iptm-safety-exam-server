@@ -16,20 +16,11 @@ const initSocket = http => {
 
 
 
-        socket.on(
-            SOCKET.LOGIN,
-            (data, callback) => {
 
-                console.log(`socket ${ socket.id } login: ${ JSON.stringify(data, null, '\t') }`)
 
-                const { username, password } = data
 
-                const user = auth.authUser({ username, password })
 
-                callback(user)
 
-            }
-        )
         listenEvents(socket)
 
     })
