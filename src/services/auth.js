@@ -1,6 +1,8 @@
 const
     UsersController = require('../controllers/user'),
     cookie = require('cookie'),
+    tokenService = require('./token')
+
 
 const checkJWT = JWTObject => {
     return JWTObject ? { username: 'username', roles: ['role'] } : null
