@@ -23,12 +23,13 @@ const initSocket = http => {
 
         if (!user) {
 
+            console.log(`socket ${ socket.id } not authorized`)
             socket.emit(SOCKET.AUTHORIZED, false)
             return socket.disconnect(true)
 
         }
 
-        console.log(`socket user ${ user }`)
+        console.log(`socket ${ socket.id } authorized`)
 
         socket.emit(SOCKET.AUTHORIZED, user)
 
@@ -37,5 +38,6 @@ const initSocket = http => {
     })
 
 }
+
 
 module.exports = { initSocket }
