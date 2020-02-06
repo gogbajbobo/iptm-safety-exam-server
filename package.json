@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gogbajbobo/iptm-safety-exam-server#readme",
   "dependencies": {
+    "cookie": "^0.4.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
