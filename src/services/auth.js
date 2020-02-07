@@ -1,7 +1,8 @@
 const
     UsersController = require('../controllers/user'),
     cookie = require('cookie'),
-    tokenService = require('./token')
+    tokenService = require('./token'),
+    { log } = require('./logger')
 
 
 const checkJWT = JWTObject => {
@@ -25,7 +26,7 @@ const authSocket = socket => {
 
     const { headers, query } = handshake
     const cookieObject = cookie.parse(headers.cookie)
-    console.log('cookieObject', cookieObject)
+    log.info('cookieObject', cookieObject)
     const { authJWT } = cookieObject
 
     socket.user = authJWT ? checkJWT(authJWT) : checkCredentials(query)
