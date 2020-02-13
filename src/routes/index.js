@@ -6,21 +6,21 @@ const
 
 const router = Router()
 
-const allowedOrigins = ['http://localhost:8082']
+const clientDomain = 'http://localhost:8082'
+const allowedOrigins = [clientDomain]
+const authPath = `/auth/login`
 
 router.route('*')
     .all((req, res, next) => {
 
         if (req.path === '/') {
-
             res.header('Access-Control-Allow-Origin', '*')
-
         } else {
 
             const reqOrigin = req.headers['origin']
             if (!allowedOrigins.includes(reqOrigin)) return res.status(403).end()
-
             res.header('Access-Control-Allow-Origin', reqOrigin)
+            req.path === authPath && res.header('Access-Control-Allow-Credentials', true)
 
         }
 
@@ -33,9 +33,16 @@ router.route('*')
 router.route('/')
     .get((req, res) => res.json({ error: false, message: 'SES server ok' }))
 
-router.route(`/auth/login`)
+router.route(authPath)
     .post(passport.authenticate('local'), (req, res) => {
-        res.json(token.invokeToken(req.user))
+
+        const { user } = req
+        const { accessToken, expires } = token.invokeToken(user)
+
+        res
+            .cookie('authJWT', accessToken, { expires, httpOnly: true, sameSite: true })
+            .json({ user })
+
     })
 
 
