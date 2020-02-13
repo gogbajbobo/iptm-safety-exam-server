@@ -4,15 +4,22 @@ const
 
 
 const secretKey = 'Super secret key'
+const tokenLifetime = 60 * 60 * 24 * 2 // seconds
 
 const invokeToken = user => {
 
-    const accessToken = jwt.sign(user, secretKey)
-    tokenCache.set(accessToken, user)
+    const now = Date.now()
+    const expirationTime = Math.floor(now / 1000) + tokenLifetime
 
-    return { accessToken }
+    const data = { ...user, expirationTime }
+    const accessToken = jwt.sign(data, secretKey)
+    tokenCache.set(accessToken, data)
 
-}
+    return {
+        accessToken,
+        issued: now,
+        expires: new Date(expirationTime * 1000)
+    }
 
 }
 
