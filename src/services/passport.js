@@ -13,5 +13,14 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 }))
 
+passport.serializeUser((user, done) => done(null, user.id))
+passport.deserializeUser((id, done) => {
+
+    UserController.findById(id)
+        .then(user => done(null, user))
+        .catch(err => done(err, false))
+
+})
+
 
 module.exports = passport
