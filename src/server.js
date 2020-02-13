@@ -1,6 +1,7 @@
 const
     app = require('express')(),
     http = require('http').createServer(app),
+    bodyParser = require('body-parser'),
     socket = require('./socket'),
     passport = require('./services/passport'),
     router = require('./routes'),
@@ -10,6 +11,9 @@ const
 const port = 8081
 
 requestLoggers.forEach(logger => app.use(logger))
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 app.use(passport.initialize())
 app.use(router)
