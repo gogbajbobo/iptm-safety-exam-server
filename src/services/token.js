@@ -5,7 +5,7 @@ const
 
 const secretKey = 'Super secret key'
 
-function invokeToken(user) {
+const invokeToken = user => {
 
     const accessToken = jwt.sign(user, secretKey)
     tokenCache.set(accessToken, user)
@@ -14,9 +14,9 @@ function invokeToken(user) {
 
 }
 
-function extractData(token) {
-    return jwt.decode(token, secretKey)
 }
+
+const extractData = token => jwt.decode(token, secretKey)
 
 
 module.exports = {
