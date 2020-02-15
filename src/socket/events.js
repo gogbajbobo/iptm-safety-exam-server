@@ -10,7 +10,7 @@ const SOCKET = {
 
 }
 
-const listenEvents = socket => {
+const listenEvents = ({ socket, io }) => {
 
     socket.on(SOCKET.DISCONNECT, reason => {
         console.log(`socket ${ socket.id } disconnected with reason: ${ reason }`)

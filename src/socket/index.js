@@ -34,7 +34,7 @@ const initSocket = http => {
         socket.emit(SOCKET.AUTHORIZED, user)
         log.info(`socket ${ socket.id } authorized`)
 
-        listenEvents(socket)
+        listenEvents({ socket, io })
 
     })
 
