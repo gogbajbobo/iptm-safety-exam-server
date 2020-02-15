@@ -5,7 +5,6 @@ const SOCKET = {
     DISCONNECT: 'disconnect',
     DISCONNECTING: 'disconnecting',
 
-    AUTHORIZED: 'authorized',
     MESSAGE: 'message',
 
 }

@@ -24,14 +24,11 @@ const initSocket = http => {
 
         if (!user) {
 
-            socket.emit(SOCKET.AUTHORIZED, false)
             log.error(`socket ${ socket.id } not authorized`)
             return socket.disconnect(true)
 
         }
 
-
-        socket.emit(SOCKET.AUTHORIZED, user)
         log.info(`socket ${ socket.id } authorized`)
 
         listenEvents({ socket, io })
