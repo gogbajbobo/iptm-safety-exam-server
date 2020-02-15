@@ -16,8 +16,8 @@ const initSocket = http => {
 
     })
 
-    io.on(SOCKET.CONNECTION, socket => {
 
+    io.on(SocketEvents.CONNECTION, socket => {
 
         const { user } = socket
         log.info(`socket ${ socket.id } connected`)

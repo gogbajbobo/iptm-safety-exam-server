@@ -1,4 +1,4 @@
-const SOCKET = {
+const SocketEvents = {
 
     CONNECTION: 'connection',
     ERROR: 'error',
@@ -11,19 +11,19 @@ const SOCKET = {
 
 const listenEvents = ({ socket, io }) => {
 
-    socket.on(SOCKET.DISCONNECT, reason => {
         console.log(`socket ${ socket.id } disconnected with reason: ${ reason }`)
+    socket.on(SocketEvents.DISCONNECT, reason => {
     })
 
-    socket.on(SOCKET.ERROR, error => {
         console.error(`socket ${ socket.id } error: ${ error }`)
+    socket.on(SocketEvents.ERROR, error => {
     })
 
-    socket.on(SOCKET.DISCONNECTING, reason => {
         console.log(`socket ${ socket.id } disconnecting with reason: ${ reason }`)
+    socket.on(SocketEvents.DISCONNECTING, reason => {
     })
 
-    socket.on(SOCKET.MESSAGE, message => {
+    socket.on(SocketEvents.MESSAGE, message => {
 
         console.log(`socket ${ socket.id } message: ${ message }`)
         io.emit('message', message)
@@ -32,4 +32,4 @@ const listenEvents = ({ socket, io }) => {
 
 }
 
-module.exports = { SOCKET, listenEvents }
+module.exports = { SocketEvents, listenEvents }
