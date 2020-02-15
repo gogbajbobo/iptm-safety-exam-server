@@ -14,16 +14,8 @@ const SocketEvents = {
 
 const listenEvents = ({ socket, io }) => {
 
-    socket.on(SocketEvents.DISCONNECT, reason => {
-        log.info(`socket ${ socket.id } disconnected with reason: ${ reason }`)
-    })
-
-    socket.on(SocketEvents.ERROR, error => {
-        log.info(`socket ${ socket.id } error: ${ error }`)
-    })
-
-    socket.on(SocketEvents.DISCONNECTING, reason => {
-        log.info(`socket ${ socket.id } disconnecting with reason: ${ reason }`)
+    [ SocketEvents.ERROR, SocketEvents.DISCONNECT, SocketEvents.DISCONNECTING ].forEach(event => {
+        socket.on(event, data => log.info(`socket ${ socket.id } ${ event }: ${ data }`))
     })
 
     socket.on(SocketEvents.MESSAGE, message => {
