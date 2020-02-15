@@ -1,3 +1,6 @@
+const { log } = require('../services/logger')
+
+
 const SocketEvents = {
 
     CONNECTION: 'connection',
@@ -11,21 +14,21 @@ const SocketEvents = {
 
 const listenEvents = ({ socket, io }) => {
 
-        console.log(`socket ${ socket.id } disconnected with reason: ${ reason }`)
     socket.on(SocketEvents.DISCONNECT, reason => {
+        log.info(`socket ${ socket.id } disconnected with reason: ${ reason }`)
     })
 
-        console.error(`socket ${ socket.id } error: ${ error }`)
     socket.on(SocketEvents.ERROR, error => {
+        log.info(`socket ${ socket.id } error: ${ error }`)
     })
 
-        console.log(`socket ${ socket.id } disconnecting with reason: ${ reason }`)
     socket.on(SocketEvents.DISCONNECTING, reason => {
+        log.info(`socket ${ socket.id } disconnecting with reason: ${ reason }`)
     })
 
     socket.on(SocketEvents.MESSAGE, message => {
 
-        console.log(`socket ${ socket.id } message: ${ message }`)
+        log.info(`socket ${ socket.id } message: ${ message }`)
         io.emit('message', message)
 
     })
