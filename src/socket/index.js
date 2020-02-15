@@ -1,51 +1,49 @@
-const socketIO = require('socket.io')
-const { SOCKET } = require('../socket/events')
-const auth = require('../services/auth')
+const
+    socketIO = require('socket.io'),
+    { SocketEvents, listenEvents } = require('../socket/events'),
+    auth = require('../services/auth'),
+    { log } = require('../services/logger')
 
 
 const initSocket = http => {
 
     const io = socketIO(http)
+    applySocketMiddleware(io)
+    handleSocketConnection(io)
 
-    io.on(SOCKET.CONNECTION, socket => {
+}
 
-        console.log(`socket ${ socket.id } connected`)
+const applySocketMiddleware = io => {
 
-        socket.on(SOCKET.DISCONNECT, reason => {
-            console.log(`socket ${ socket.id } disconnected with reason: ${ reason }`)
-        })
+    io.use((socket, next) => {
 
-        socket.on(SOCKET.ERROR, error => {
-            console.error(`socket ${ socket.id } error: ${ error }`)
-        })
-
-        socket.on(SOCKET.DISCONNECTING, reason => {
-            console.log(`socket ${ socket.id } disconnecting with reason: ${ reason }`)
-        })
-
-        socket.on(SOCKET.MESSAGE, message => {
-
-            console.log(`socket ${ socket.id } message: ${ message }`)
-            io.emit('message', message)
-
-        })
-        socket.on(
-            SOCKET.LOGIN,
-            (data, callback) => {
-
-                console.log(`socket ${ socket.id } login: ${ JSON.stringify(data, null, '\t') }`)
-
-                const { username, password } = data
-
-                const user = auth.authUser({ username, password })
-
-                callback(user)
-
-            }
-        )
+        auth.authSocket(socket)
+        next()
 
     })
 
 }
+
+const handleSocketConnection = io => {
+
+    io.on(SocketEvents.CONNECTION, socket => {
+
+        log.info(`socket ${ socket.id } connected`)
+
+        if (!socket.user) {
+
+            log.error(`socket ${ socket.id } not authorized`)
+            return socket.disconnect(true)
+
+        }
+
+        log.info(`socket ${ socket.id } authorized`)
+
+        listenEvents({ socket, io })
+
+    })
+
+}
+
 
 module.exports = { initSocket }
