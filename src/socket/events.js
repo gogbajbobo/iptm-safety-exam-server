@@ -14,13 +14,45 @@ const SocketEvents = {
 
 const listenEvents = ({ socket, io }) => {
 
-    [ SocketEvents.ERROR, SocketEvents.DISCONNECT, SocketEvents.DISCONNECTING ].forEach(event => {
-        socket.on(event, data => log.info(`socket ${ socket.id } ${ event }: ${ data }`))
+    [ disconnectingEventHandler, errorEventHandler, disconnectEventHandler ]
+        .forEach(eh => eh(socket))
+
+    messageEventHandler({ socket, io })
+
+}
+
+const errorEventHandler = socket => {
+
+    socket.on(SocketEvents.ERROR, error => {
+        log.error(`socket ${ socket.id } ${ SocketEvents.ERROR }: ${ error }`)
     })
+
+}
+
+const disconnectingEventHandler = socket => {
+
+    socket.on(SocketEvents.DISCONNECTING, reason => {
+        log.debug(`socket ${ socket.id } ${ SocketEvents.DISCONNECTING }: ${ reason }`)
+    })
+
+}
+
+const disconnectEventHandler = socket => {
+
+    socket.on(SocketEvents.DISCONNECT, reason => {
+
+        log.info(`socket ${ socket.id } ${ SocketEvents.DISCONNECT }: ${ reason }`)
+        socket.removeAllListeners()
+
+    })
+
+}
+
+const messageEventHandler = ({ socket, io }) => {
 
     socket.on(SocketEvents.MESSAGE, message => {
 
-        log.info(`socket ${ socket.id } message: ${ message }`)
+        log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ message }`)
         io.emit('message', message)
 
     })
