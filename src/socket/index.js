@@ -8,6 +8,12 @@ const
 const initSocket = http => {
 
     const io = socketIO(http)
+    applySocketMiddleware(io)
+    handleSocketConnection(io)
+
+}
+
+const applySocketMiddleware = io => {
 
     io.use((socket, next) => {
 
@@ -16,13 +22,15 @@ const initSocket = http => {
 
     })
 
+}
+
+const handleSocketConnection = io => {
 
     io.on(SocketEvents.CONNECTION, socket => {
 
-        const { user } = socket
         log.info(`socket ${ socket.id } connected`)
 
-        if (!user) {
+        if (!socket.user) {
 
             log.error(`socket ${ socket.id } not authorized`)
             return socket.disconnect(true)
