@@ -6,6 +6,7 @@ const
 
 require('winston-daily-rotate-file')
 
+const isProduction = process.env.NODE_ENV === 'production'
 
 const logDirectory = path.join(__dirname, '../../logs')
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
@@ -42,9 +43,9 @@ const dailyRotateFileLogger = new transports.DailyRotateFile({
     json: false
 })
 
-const loggerTransports = process.env.NODE_ENV === 'production'
     ? [dailyRotateFileLogger, consoleLogger]
     : [dailyRotateFileLogger]
+const loggerTransports = isProduction
 
 const log = createLogger({
     level: 'silly',
