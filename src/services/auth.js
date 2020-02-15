@@ -26,7 +26,6 @@ const authSocket = socket => {
 
     const { headers, query } = handshake
     const cookieObject = cookie.parse(headers.cookie)
-    log.info('cookieObject', cookieObject)
     const { authJWT } = cookieObject
 
     socket.user = authJWT ? checkJWT(authJWT) : checkCredentials(query)
