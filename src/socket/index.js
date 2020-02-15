@@ -1,7 +1,8 @@
 const
     socketIO = require('socket.io'),
-    { SOCKET, listenEvents } = require('../socket/events'),
-    auth = require('../services/auth')
+    { SocketEvents, listenEvents } = require('../socket/events'),
+    auth = require('../services/auth'),
+    { log } = require('../services/logger')
 
 
 const initSocket = http => {
@@ -17,21 +18,21 @@ const initSocket = http => {
 
     io.on(SOCKET.CONNECTION, socket => {
 
-        console.log(`socket ${ socket.id } connected`)
 
         const { user } = socket
+        log.info(`socket ${ socket.id } connected`)
 
         if (!user) {
 
-            console.log(`socket ${ socket.id } not authorized`)
             socket.emit(SOCKET.AUTHORIZED, false)
+            log.error(`socket ${ socket.id } not authorized`)
             return socket.disconnect(true)
 
         }
 
-        console.log(`socket ${ socket.id } authorized`)
 
         socket.emit(SOCKET.AUTHORIZED, user)
+        log.info(`socket ${ socket.id } authorized`)
 
         listenEvents(socket)
 
