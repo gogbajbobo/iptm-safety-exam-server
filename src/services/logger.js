@@ -43,9 +43,9 @@ const dailyRotateFileLogger = new transports.DailyRotateFile({
     json: false
 })
 
-    ? [dailyRotateFileLogger, consoleLogger]
-    : [dailyRotateFileLogger]
 const loggerTransports = isProduction
+    ? [dailyRotateFileLogger]
+    : [dailyRotateFileLogger, consoleLogger]
 
 const log = createLogger({
     level: 'silly',
