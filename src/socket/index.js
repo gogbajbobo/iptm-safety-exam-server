@@ -31,7 +31,9 @@ const handleSocketConnection = io => {
 
         log.info(`socket ${ socket.id } connected`)
 
-        if (!socket.user) {
+        const { user } = socket
+
+        if (!user) {
 
             log.error(`socket ${ socket.id } not authorized`)
             return socket.disconnect(true)
@@ -39,6 +41,8 @@ const handleSocketConnection = io => {
         }
 
         log.info(`socket ${ socket.id } authorized`)
+
+        socket.to(SocketRooms.ADMIN).emit('user connected', user)
 
         listenEvents({ socket, io })
         socketRoomAssignment(socket)

@@ -1,4 +1,5 @@
 const { log } = require('../services/logger')
+const { SocketRooms } = require('../socket/rooms')
 
 
 const SocketEvents = {
@@ -42,6 +43,7 @@ const disconnectEventHandler = socket => {
     socket.on(SocketEvents.DISCONNECT, reason => {
 
         log.info(`socket ${ socket.id } ${ SocketEvents.DISCONNECT }: ${ reason }`)
+        socket.to(SocketRooms.ADMIN).emit('user disconnected', socket.user)
         socket.removeAllListeners()
 
     })
