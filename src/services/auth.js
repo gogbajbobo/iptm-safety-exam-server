@@ -6,7 +6,10 @@ const
 
 
 const checkJWT = JWTObject => {
-    return JWTObject ? { username: 'username', roles: ['role'] } : null
+
+    const tokenData = tokenService.extractData(JWTObject)
+    return JWTObject ? { ...tokenData } : null
+
 }
 
 const checkCredentials = ({ username, password }) => {
