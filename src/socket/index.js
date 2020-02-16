@@ -2,7 +2,8 @@ const
     socketIO = require('socket.io'),
     { SocketEvents, listenEvents } = require('../socket/events'),
     auth = require('../services/auth'),
-    { log } = require('../services/logger')
+    { log } = require('../services/logger'),
+    { SocketRooms, socketRoomAssignment } = require('../socket/rooms')
 
 
 const initSocket = http => {
@@ -40,6 +41,7 @@ const handleSocketConnection = io => {
         log.info(`socket ${ socket.id } authorized`)
 
         listenEvents({ socket, io })
+        socketRoomAssignment(socket)
 
     })
 
