@@ -28,6 +28,10 @@ const authSocket = socket => {
     const { handshake } = socket
 
     const { headers, query } = handshake
+
+    if (!headers.cookie)
+        return socket
+
     const cookieObject = cookie.parse(headers.cookie)
     const { authJWT } = cookieObject
 
