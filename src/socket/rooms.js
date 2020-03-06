@@ -1,8 +1,3 @@
-const logger = require('../services/logger')
-
-
-const { log } = logger
-
 const SocketRooms = {
 
     ADMIN: 'admin',
