@@ -36,6 +36,7 @@ const handleSocketConnection = io => {
         if (!user) {
 
             log.error(`socket ${ socket.id } not authorized`)
+            io.emit('error', { code: 401, message: 'Unauthorized' })
             return socket.disconnect(true)
 
         }
