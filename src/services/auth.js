@@ -41,4 +41,4 @@ const authSocket = socket => {
 
 }
 
-module.exports = { authSocket }
+module.exports = { authSocket, checkJWT }
