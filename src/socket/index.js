@@ -43,7 +43,7 @@ const handleSocketConnection = io => {
 
         log.info(`socket ${ socket.id } authorized`)
 
-        socket.to(SocketRooms.ADMIN).emit('user connected', user)
+        socket.to(SocketRooms.ADMIN).emit(SocketEvents.MESSAGE, { title: 'user connected', payload: user })
 
         listenEvents({ socket, io })
         socketRoomAssignment(socket)
