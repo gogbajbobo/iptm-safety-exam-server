@@ -9,7 +9,13 @@ const ExamRepository = () => {
 
 }
 
-const getExams = () => ExamRepository().find()
+const getExams = ack => {
+
+    return ExamRepository().find()
+        .then(payload => ack({ payload }))
+        .catch(error => ack({ error }))
+
+}
 
 const createExam = ({ id, title }, ack) => {
 

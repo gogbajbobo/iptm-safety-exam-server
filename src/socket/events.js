@@ -1,7 +1,7 @@
 const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
 
-const { createExam } = require('../controllers/exam')
+const { createExam, getExams } = require('../controllers/exam')
 
 const SocketEvents = {
 
@@ -23,6 +23,7 @@ const SocketActions = {
     disconnected: 'disconnected',
 
     createExam: 'create exam',
+    getExams: 'get exams',
 
 }
 
@@ -85,6 +86,10 @@ const actionsHandler = (action, payload, ack) => {
 
         case SocketActions.createExam: {
             return createExam(payload, ack)
+        }
+
+        case SocketActions.getExams: {
+            return getExams(ack)
         }
 
         default: {
