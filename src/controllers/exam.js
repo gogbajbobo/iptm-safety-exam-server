@@ -11,6 +11,12 @@ const ExamRepository = () => {
 
 const getExams = () => ExamRepository().find()
 
-const createExam = ({ id, title }) => ExamRepository().save(new Exam.Model(id, title))
+const createExam = ({ id, title }, ack) => {
+
+    return ExamRepository().save(new Exam.Model(id, title))
+        .then(payload => ack({ payload }))
+        .catch(error => ack({ error }))
+
+}
 
 module.exports = { getExams, createExam }
