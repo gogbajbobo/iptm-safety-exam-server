@@ -43,7 +43,7 @@ const disconnectEventHandler = socket => {
     socket.on(SocketEvents.DISCONNECT, reason => {
 
         log.info(`socket ${ socket.id } ${ SocketEvents.DISCONNECT }: ${ reason }`)
-        socket.to(SocketRooms.ADMIN).emit(SocketEvents.MESSAGE, { title: 'user disconnected', payload: socket.user })
+        socket.to(SocketRooms.ADMIN).emit(SocketEvents.MESSAGE, { action: 'user disconnected', payload: socket.user })
         socket.removeAllListeners()
 
     })
