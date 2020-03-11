@@ -1,6 +1,7 @@
 const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
 
+const { createExam } = require('../controllers/exam')
 
 const SocketEvents = {
 
@@ -68,11 +69,30 @@ const messageEventHandler = ({ socket, io }) => {
 
     socket.on(SocketEvents.MESSAGE, (message, ack) => {
 
-        log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ message }`)
-        ack({ payload: true })
+        const { action, payload } = message
+
+        log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
+
+        actionsHandler(action, payload, ack)
 
     })
 
 }
 
-module.exports = { SocketEvents, listenEvents }
+const actionsHandler = (action, payload, ack) => {
+
+    switch (action) {
+
+        case SocketActions.createExam: {
+            return createExam(payload, ack)
+        }
+
+        default: {
+            return ack({ error: 'incorrect action' })
+        }
+
+    }
+
+}
+
+module.exports = { SocketEvents, SocketActions, listenEvents }
