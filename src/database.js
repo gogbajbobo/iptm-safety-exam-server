@@ -1,5 +1,6 @@
 const typeorm = require('typeorm')
 const Exam = require('./datamodel/exam')
+const { log } = require('./services/logger')
 
 const connectionOptions = {
     name: 'iptm-ses-db',
@@ -17,13 +18,11 @@ const connectDatabase = () => {
     return typeorm.createConnection(connectionOptions)
         .then(connection => {
 
-            console.log(`database connected at ${ new Date() }: ${ connection.name }`)
+            log.info(`database connected at ${ new Date() }: ${ connection.name }`)
             return connection
 
         })
-        .catch(error => {
-            console.error('database connection error:', error)
-        })
+        .catch(error => log.error('database connection error:', error))
 
 }
 
