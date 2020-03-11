@@ -52,10 +52,10 @@ const disconnectEventHandler = socket => {
 
 const messageEventHandler = ({ socket, io }) => {
 
-    socket.on(SocketEvents.MESSAGE, message => {
+    socket.on(SocketEvents.MESSAGE, (message, ack) => {
 
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ message }`)
-        io.emit('message', message)
+        ack({ payload: true })
 
     })
 
