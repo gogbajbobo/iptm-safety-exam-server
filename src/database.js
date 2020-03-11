@@ -1,7 +1,5 @@
 const typeorm = require('typeorm')
 const Exam = require('./datamodel/exam')
-// const ExamController = require('./controllers/exam')
-
 
 const connectionOptions = {
     name: 'iptm-ses-db',
@@ -20,11 +18,6 @@ const connectDatabase = () => {
         .then(connection => {
 
             console.log(`database connected at ${ new Date() }: ${ connection.name }`)
-            // ExamController.createExam({ title: 'test' })
-            //     .then(ExamController.getExams)
-            //     .then(console.log)
-            //     .catch(console.error)
-
             return connection
 
         })
