@@ -1,6 +1,6 @@
 const
     socketIO = require('socket.io'),
-    { SocketEvents, listenEvents } = require('../socket/events'),
+    { SocketEvents, SocketActions, listenEvents } = require('../socket/events'),
     auth = require('../services/auth'),
     { log } = require('../services/logger'),
     { SocketRooms, socketRoomAssignment } = require('../socket/rooms')
@@ -43,7 +43,9 @@ const handleSocketConnection = io => {
 
         log.info(`socket ${ socket.id } authorized`)
 
-        socket.to(SocketRooms.ADMIN).emit(SocketEvents.MESSAGE, { action: 'user connected', payload: user })
+        socket
+            .to(SocketRooms.ADMIN)
+            .emit(SocketEvents.MESSAGE, { action: SocketActions.connected, payload: user })
 
         listenEvents({ socket, io })
         socketRoomAssignment(socket)

@@ -13,6 +13,18 @@ const SocketEvents = {
 
 }
 
+const SocketActions = {
+
+    login: 'login',
+    logout: 'logout',
+
+    connected: 'connected',
+    disconnected: 'disconnected',
+
+    createExam: 'create exam',
+
+}
+
 const listenEvents = ({ socket, io }) => {
 
     [ disconnectingEventHandler, errorEventHandler, disconnectEventHandler ]
@@ -43,8 +55,10 @@ const disconnectEventHandler = socket => {
     socket.on(SocketEvents.DISCONNECT, reason => {
 
         log.info(`socket ${ socket.id } ${ SocketEvents.DISCONNECT }: ${ reason }`)
-        socket.to(SocketRooms.ADMIN).emit(SocketEvents.MESSAGE, { action: 'user disconnected', payload: socket.user })
-        socket.removeAllListeners()
+        socket
+            .to(SocketRooms.ADMIN)
+            .emit(SocketEvents.MESSAGE, { action: SocketActions.disconnected, payload: socket.user })
+            .removeAllListeners()
 
     })
 
