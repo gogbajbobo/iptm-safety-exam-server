@@ -17,9 +17,9 @@ const getExams = ack => {
 
 }
 
-const createExam = ({ id, title }, ack) => {
+const createExam = (exam, ack) => {
 
-    return ExamRepository().save(new Exam.Model(id, title))
+    return ExamRepository().insert(exam)
         .then(payload => ack({ payload }))
         .catch(error => ack({ error }))
 
