@@ -25,4 +25,12 @@ const createExam = ({ id, title }, ack) => {
 
 }
 
-module.exports = { getExams, createExam }
+const deleteExam = (id, ack) => {
+
+    return ExamRepository().delete(id)
+        .then(payload => ack({ payload }))
+        .catch(error => ack({ error }))
+
+}
+
+module.exports = { getExams, createExam, deleteExam }
