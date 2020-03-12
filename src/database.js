@@ -11,6 +11,7 @@ const connectionOptions = {
     username: 'root',
     database: 'iptm_ses',
     synchronize: !isProduction,
+    charset: 'utf8mb4',
     entities: [ Exam.Schema ],
 }
 
