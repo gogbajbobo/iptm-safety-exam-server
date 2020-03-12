@@ -2,12 +2,7 @@ const typeorm = require('typeorm')
 const Exam = require('../datamodel/exam')
 
 
-const ExamRepository = () => {
-
-    const connection = typeorm.getConnection('iptm-ses-db')
-    return connection.getRepository(Exam.Model)
-
-}
+const ExamRepository = () => typeorm.getRepository(Exam.Model, 'iptm-ses-db')
 
 const getExams = ack => {
 
