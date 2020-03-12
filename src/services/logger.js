@@ -2,11 +2,10 @@ const
     fs = require('fs'),
     morgan = require('morgan'),
     path = require('path'),
-    { createLogger, transports, format } = require('winston')
+    { createLogger, transports, format } = require('winston'),
+    helper = require('./helper')
 
 require('winston-daily-rotate-file')
-
-const isProduction = process.env.NODE_ENV === 'production'
 
 const logDirectory = path.join(__dirname, '../../logs')
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
@@ -43,7 +42,7 @@ const dailyRotateFileLogger = new transports.DailyRotateFile({
     json: false
 })
 
-const loggerTransports = isProduction
+const loggerTransports = helper.isProduction
     ? [dailyRotateFileLogger]
     : [dailyRotateFileLogger, consoleLogger]
 

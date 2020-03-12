@@ -1,6 +1,7 @@
 const typeorm = require('typeorm')
 const Exam = require('./datamodel/exam')
 const { log } = require('./services/logger')
+const { isProduction } = require('./services/helper')
 
 const connectionOptions = {
     name: 'iptm-ses-db',
@@ -9,8 +10,8 @@ const connectionOptions = {
     port: 3316,
     username: 'root',
     database: 'iptm_ses',
-    synchronize: true,
-    entities: [ Exam.Schema ]
+    synchronize: !isProduction,
+    entities: [ Exam.Schema ],
 }
 
 const connectDatabase = () => {
