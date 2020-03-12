@@ -85,17 +85,9 @@ const actionsHandler = (action, payload, ack) => {
 
     switch (action) {
 
-        case SocketActions.createExam: {
-            return createExam(payload, ack)
-        }
-
-        case SocketActions.getExams: {
-            return getExams(ack)
-        }
-
-        default: {
-            return ack({ error: 'incorrect action' })
-        }
+        case SocketActions.createExam:  return createExam(payload, ack)
+        case SocketActions.getExams:    return getExams(ack)
+        default:                        return ack({ error: 'incorrect action' })
 
     }
 
