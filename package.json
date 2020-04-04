@@ -33,5 +33,9 @@
     "typeorm": "^0.2.22",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-fp": "^2.3.0"
   }
 }
