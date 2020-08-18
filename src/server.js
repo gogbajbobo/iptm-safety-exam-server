@@ -1,25 +1,33 @@
 const
     app = require('express')(),
     http = require('http').createServer(app),
-    io = require('socket.io')(http)
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    socket = require('./socket'),
+    passport = require('./services/passport'),
+    router = require('./routes'),
+    { requestLoggers, log } = require('./services/logger')
+
 
 const port = 8081
 
-app.get('/', (req, res) => res.json({ error: false, message: 'SES server ok' }))
+requestLoggers.forEach(logger => app.use(logger))
 
-const startServer = () => {
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+
+app.use(passport.initialize())
+app.use(router)
+
+const startServer = connection => {
+
+    if (!connection) log.error('Have no connection to database')
 
     http.listen(port, () => {
-        console.log(`SES server started at ${ new Date() } on *:${ port }`)
-    })
 
-    io.on('connection', socket => {
-
-        console.log('a user connected')
-
-        socket.on('disconnect', () => {
-            console.log('user disconnected')
-        })
+        log.info(`SES server started at ${ new Date() } on *:${ port }`)
+        socket.initSocket(http)
 
     })
 

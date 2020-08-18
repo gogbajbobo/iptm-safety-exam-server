@@ -1,3 +1,9 @@
+const db = require('./src/database')
 const server = require('./src/server')
+const { log } = require('./src/services/logger')
+require('reflect-metadata')
 
-server.startServer()
+
+db.connectDatabase()
+    .then(server.startServer)
+    .catch(log.error)
