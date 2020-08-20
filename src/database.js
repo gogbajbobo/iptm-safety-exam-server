@@ -1,5 +1,6 @@
 const typeorm = require('typeorm')
 const Exam = require('./datamodel/exam')
+const Question = require('./datamodel/question')
 const { log } = require('./services/logger')
 const { isProduction } = require('./services/helper')
 
@@ -12,7 +13,7 @@ const connectionOptions = {
     database: 'iptm_ses',
     synchronize: !isProduction,
     charset: 'utf8mb4',
-    entities: [ Exam.Schema ],
+    entities: [ Exam.Schema, Question.Schema ],
 }
 
 const connectDatabase = () => {
