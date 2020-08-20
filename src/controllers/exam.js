@@ -14,7 +14,7 @@ const getExams = ack => {
 
 const createExam = (exam, ack) => {
 
-    return ExamRepository().insert(exam)
+    return ExamRepository().save(exam)
         .then(payload => ack({ payload }))
         .catch(error => ack({ error }))
 
