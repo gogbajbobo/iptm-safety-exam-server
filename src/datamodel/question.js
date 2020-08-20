@@ -1,4 +1,4 @@
-const EntitySchema = require('typeorm').EntitySchema
+const { EntitySchema } = require('typeorm')
 const Exam = require('./exam')
 
 const Model = 'Question'
