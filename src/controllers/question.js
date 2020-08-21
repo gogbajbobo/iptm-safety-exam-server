@@ -20,5 +20,13 @@ const getQuestions = (filter, ack) => {
 
 }
 
+const deleteQuestion = (id, ack) => {
 
-module.exports = { createQuestion, getQuestions }
+    return QuestionRepository().delete(id)
+        .then(payload => ack({ payload }))
+        .catch(error => ack({ error }))
+
+}
+
+
+module.exports = { createQuestion, getQuestions, deleteQuestion }
