@@ -22,7 +22,7 @@ const createExam = (exam, ack) => {
 
 const updateExam = (exam, ack) => {
 
-    return ExamRepository().update(exam.id, exam)
+    return ExamRepository().save(exam)
         .then(payload => ack({ payload }))
         .catch(error => ack({ error }))
 
