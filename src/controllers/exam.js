@@ -1,39 +1,17 @@
 const typeorm = require('typeorm')
 const Exam = require('../datamodel/exam')
+const { requestHandler } = require('./_helper')
 
 
 const ExamRepository = () => typeorm.getRepository(Exam.Model, 'iptm-ses-db')
 
-const getExams = ack => {
+const getExams = ack => requestHandler(ExamRepository().find(), ack)
 
-    return ExamRepository().find()
-        .then(payload => ack({ payload }))
-        .catch(error => ack({ error }))
+const createExam = (exam, ack) => requestHandler(ExamRepository().save(exam), ack)
 
-}
+const updateExam = (exam, ack) => requestHandler(ExamRepository().save(exam), ack)
 
-const createExam = (exam, ack) => {
+const deleteExam = (id, ack) => requestHandler(ExamRepository().delete(id), ack)
 
-    return ExamRepository().save(exam)
-        .then(payload => ack({ payload }))
-        .catch(error => ack({ error }))
-
-}
-
-const updateExam = (exam, ack) => {
-
-    return ExamRepository().save(exam)
-        .then(payload => ack({ payload }))
-        .catch(error => ack({ error }))
-
-}
-
-const deleteExam = (id, ack) => {
-
-    return ExamRepository().delete(id)
-        .then(payload => ack({ payload }))
-        .catch(error => ack({ error }))
-
-}
 
 module.exports = { getExams, createExam, updateExam, deleteExam }
