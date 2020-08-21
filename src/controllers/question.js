@@ -12,5 +12,13 @@ const createQuestion = (question, ack) => {
 
 }
 
+const getQuestions = (filter, ack) => {
 
-module.exports = { createQuestion }
+    return QuestionRepository().find(filter)
+        .then(payload => ack({ payload }))
+        .catch(error => ack({ error }))
+
+}
+
+
+module.exports = { createQuestion, getQuestions }
