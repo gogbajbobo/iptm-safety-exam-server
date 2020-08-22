@@ -5,7 +5,7 @@ const { requestHandler } = require('./_helper')
 
 const QuestionRepository = () => typeorm.getRepository(Question.Model, 'iptm-ses-db')
 
-const createQuestion = (question, ack) => requestHandler(QuestionRepository().insert(question), ack)
+const createQuestion = (question, ack) => requestHandler(QuestionRepository().save(question), ack)
 
 const getQuestions = (filter, ack) => requestHandler(QuestionRepository().find(filter), ack)
 
