@@ -1,18 +1,17 @@
 const { EntitySchema } = require('typeorm')
-const Exam = require('./exam')
-
-const Model = 'Question'
+const Question = require('./_model_names').question
+const Exam = require('./_model_names').exam
 
 const Schema = new EntitySchema ({
-    name: Model,
-    target: Model,
+    name: Question,
+    target: Question,
     columns: {
         id: { type: Number, primary: true, generated: true },
         text: { type: String },
     },
     relations: {
         exam: {
-            target: Exam.Model,
+            target: Exam,
             type: 'many-to-one',
             cascade: true,
             nullable: false,
@@ -20,4 +19,4 @@ const Schema = new EntitySchema ({
     }
 })
 
-module.exports = { Model, Schema }
+module.exports = { Schema }
