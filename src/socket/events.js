@@ -2,7 +2,7 @@ const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
 
 const { createExam, getExams, updateExam, deleteExam } = require('../controllers/exam')
-const { createQuestion, getQuestions, deleteQuestion } = require('../controllers/question')
+const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
 
 const SocketEvents = {
 
@@ -30,6 +30,7 @@ const SocketActions = {
 
     createQuestion: 'create question',
     getQuestions: 'get questions',
+    updateQuestion: 'update question',
     deleteQuestion: 'delete question',
 
 }
@@ -98,6 +99,7 @@ const actionsHandler = (action, payload, ack) => {
 
         case SocketActions.createQuestion:  return createQuestion(payload, ack)
         case SocketActions.getQuestions:    return getQuestions(payload, ack)
+        case SocketActions.updateQuestion:  return updateQuestion(payload, ack)
         case SocketActions.deleteQuestion:  return deleteQuestion(payload, ack)
 
         default:                            return ack({ error: 'incorrect action' })

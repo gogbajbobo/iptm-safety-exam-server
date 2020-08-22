@@ -9,7 +9,9 @@ const createQuestion = (question, ack) => requestHandler(QuestionRepository().sa
 
 const getQuestions = (filter, ack) => requestHandler(QuestionRepository().find(filter), ack)
 
+const updateQuestion = (question, ack) => requestHandler(QuestionRepository().save(question), ack)
+
 const deleteQuestion = (id, ack) => requestHandler(QuestionRepository().delete(id), ack)
 
 
-module.exports = { createQuestion, getQuestions, deleteQuestion }
+module.exports = { createQuestion, getQuestions, updateQuestion, deleteQuestion }
