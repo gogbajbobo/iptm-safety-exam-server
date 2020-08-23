@@ -11,7 +11,7 @@ const getAnswers = (filter, ack) => requestHandler(AnswerRepository().find(filte
 
 // const updateQuestion = (question, ack) => requestHandler(QuestionRepository().save(question), ack)
 
-// const deleteQuestion = (id, ack) => requestHandler(QuestionRepository().delete(id), ack)
+const deleteAnswer = (id, ack) => requestHandler(AnswerRepository().delete(id), ack)
 
 
-module.exports = { createAnswer, getAnswers/*, updateQuestion, deleteQuestion */ }
+module.exports = { createAnswer, getAnswers, deleteAnswer }
