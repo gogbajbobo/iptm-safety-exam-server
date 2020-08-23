@@ -4,9 +4,10 @@ const Question = require('./datamodel/question')
 const Answer = require('./datamodel/answer')
 const { log } = require('./services/logger')
 const { isProduction } = require('./services/helper')
+const { CONNECTION_NAME } = require('./constants')
 
 const connectionOptions = {
-    name: 'iptm-ses-db',
+    name: CONNECTION_NAME,
     type: 'mysql',
     host: 'localhost',
     port: 3316,
