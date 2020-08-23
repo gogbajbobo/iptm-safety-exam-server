@@ -15,7 +15,7 @@ const Schema = new EntitySchema ({
         question: {
             target: Question,
             type: 'many-to-one',
-            cascade: true,
+            onDelete: 'CASCADE',
             nullable: false,
         }
     },

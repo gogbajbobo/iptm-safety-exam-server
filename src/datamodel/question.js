@@ -14,7 +14,7 @@ const Schema = new EntitySchema ({
         exam: {
             target: Exam,
             type: 'many-to-one',
-            cascade: true,
+            onDelete: 'CASCADE',
             nullable: false,
         }
     },
