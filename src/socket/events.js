@@ -1,3 +1,6 @@
+const typeorm = require('typeorm')
+const { CONNECTION_NAME } = require('../constants')
+
 const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
 
@@ -82,7 +85,10 @@ const messageEventHandler = ({ socket, io }) => {
 
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
 
-        actionsHandler(action, payload, ack)
+        if (typeorm.getConnection(CONNECTION_NAME).isConnected)
+            actionsHandler(action, payload, ack)
+
+        ack({ error: 'database is not connected' })
 
     })
 
