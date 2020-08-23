@@ -5,7 +5,7 @@ const { requestHandler } = require('./_helper')
 
 const AnswerRepository = () => typeorm.getRepository(Answer, 'iptm-ses-db')
 
-// const createQuestion = (question, ack) => requestHandler(QuestionRepository().save(question), ack)
+const createAnswer = (answer, ack) => requestHandler(AnswerRepository().save(answer), ack)
 
 const getAnswers = (filter, ack) => requestHandler(AnswerRepository().find(filter), ack)
 
@@ -14,4 +14,4 @@ const getAnswers = (filter, ack) => requestHandler(AnswerRepository().find(filte
 // const deleteQuestion = (id, ack) => requestHandler(QuestionRepository().delete(id), ack)
 
 
-module.exports = { /*createQuestion, */getAnswers/*, updateQuestion, deleteQuestion */ }
+module.exports = { createAnswer, getAnswers/*, updateQuestion, deleteQuestion */ }
