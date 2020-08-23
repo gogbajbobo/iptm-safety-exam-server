@@ -9,7 +9,7 @@ const Schema = new EntitySchema ({
     columns: {
         id: { type: Number, primary: true, generated: true },
         text: { type: String },
-        isCorrect: { type: Boolean },
+        isCorrect: { type: Boolean, default: false },
     },
     relations: {
         question: {
