@@ -2,6 +2,7 @@ const { EntitySchema } = require('typeorm')
 const Question = require('./_model_names').question
 const Exam = require('./_model_names').exam
 
+
 const Schema = new EntitySchema ({
     name: Question,
     target: Question,
@@ -16,7 +17,8 @@ const Schema = new EntitySchema ({
             cascade: true,
             nullable: false,
         }
-    }
+    },
 })
+
 
 module.exports = { Schema }

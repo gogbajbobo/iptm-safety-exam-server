@@ -18,7 +18,8 @@ const Schema = new EntitySchema ({
             cascade: true,
             nullable: false,
         }
-    }
+    },
 })
+
 
 module.exports = { Schema }
