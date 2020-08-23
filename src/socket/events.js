@@ -79,14 +79,16 @@ const disconnectEventHandler = socket => {
 
 const messageEventHandler = ({ socket, io }) => {
 
+    const connection = typeorm.getConnection(CONNECTION_NAME)
+
     socket.on(SocketEvents.MESSAGE, (message, ack) => {
 
         const { action, payload } = message
 
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
 
-        if (typeorm.getConnection(CONNECTION_NAME).isConnected)
             actionsHandler(action, payload, ack)
+        if (connection.isConnected)
 
         ack({ error: 'database is not connected' })
 
