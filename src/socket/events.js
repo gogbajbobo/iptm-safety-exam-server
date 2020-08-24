@@ -6,7 +6,7 @@ const { SocketRooms } = require('../socket/rooms')
 
 const { createExam, getExams, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
-const { createAnswer, getAnswers, updateAnswer, deleteAnswer } = require('../controllers/answer')
+const { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer } = require('../controllers/answer')
 
 const SocketEvents = {
 
@@ -40,6 +40,7 @@ const SocketActions = {
     createAnswer: 'create answer',
     getAnswers: 'get answers',
     updateAnswer: 'update answer',
+    setAnswerAsCorrect: 'set answer as correct',
     deleteAnswer: 'delete answer',
 
 }
@@ -106,22 +107,23 @@ const actionsHandler = (action, payload, ack) => {
 
     switch (action) {
 
-        case SocketActions.createExam:      return createExam(payload, ack)
-        case SocketActions.getExams:        return getExams(ack)
-        case SocketActions.updateExam:      return updateExam(payload, ack)
-        case SocketActions.deleteExam:      return deleteExam(payload, ack)
+        case SocketActions.createExam:          return createExam(payload, ack)
+        case SocketActions.getExams:            return getExams(ack)
+        case SocketActions.updateExam:          return updateExam(payload, ack)
+        case SocketActions.deleteExam:          return deleteExam(payload, ack)
 
-        case SocketActions.createQuestion:  return createQuestion(payload, ack)
-        case SocketActions.getQuestions:    return getQuestions(payload, ack)
-        case SocketActions.updateQuestion:  return updateQuestion(payload, ack)
-        case SocketActions.deleteQuestion:  return deleteQuestion(payload, ack)
+        case SocketActions.createQuestion:      return createQuestion(payload, ack)
+        case SocketActions.getQuestions:        return getQuestions(payload, ack)
+        case SocketActions.updateQuestion:      return updateQuestion(payload, ack)
+        case SocketActions.deleteQuestion:      return deleteQuestion(payload, ack)
 
-        case SocketActions.createAnswer:    return createAnswer(payload, ack)
-        case SocketActions.getAnswers:      return getAnswers(payload, ack)
-        case SocketActions.updateAnswer:    return updateAnswer(payload, ack)
-        case SocketActions.deleteAnswer:    return deleteAnswer(payload, ack)
+        case SocketActions.createAnswer:        return createAnswer(payload, ack)
+        case SocketActions.getAnswers:          return getAnswers(payload, ack)
+        case SocketActions.updateAnswer:        return updateAnswer(payload, ack)
+        case SocketActions.setAnswerAsCorrect:  return setAnswerAsCorrect(payload, ack)
+        case SocketActions.deleteAnswer:        return deleteAnswer(payload, ack)
 
-        default:                            return ack({ error: 'incorrect action' })
+        default:                                return ack({ error: 'incorrect action' })
 
     }
 
