@@ -1,6 +1,8 @@
+const userRoles = require('../datamodel/_user_roles')
+
 const
-    ADMIN = { username: 'admin', roles: ['admin'], id: 0 },
-    EXAMINEE = { username: 'user', roles: ['examinee'], id: 1 }
+    ADMIN = { username: 'admin', roles: [ userRoles.admin ], id: 0 },
+    EXAMINEE = { username: 'user', roles: [ userRoles.examinee ], id: 1 }
 
 const authUser = ({ username, password }) => {
 
