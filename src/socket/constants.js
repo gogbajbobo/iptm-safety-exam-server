@@ -14,21 +14,23 @@ const SocketActions = {
     connected: 'connected',
     disconnected: 'disconnected',
 
-    createExam: 'create exam',
-    getExams: 'get exams',
-    updateExam: 'update exam',
-    deleteExam: 'delete exam',
+    createExam: 'createExam',
+    getExams: 'getExams',
+    updateExam: 'updateExam',
+    deleteExam: 'deleteExam',
 
-    createQuestion: 'create question',
-    getQuestions: 'get questions',
-    updateQuestion: 'update question',
-    deleteQuestion: 'delete question',
+    createQuestion: 'createQuestion',
+    getQuestions: 'getQuestions',
+    updateQuestion: 'updateQuestion',
+    deleteQuestion: 'deleteQuestion',
 
-    createAnswer: 'create answer',
-    getAnswers: 'get answers',
-    updateAnswer: 'update answer',
-    setAnswerAsCorrect: 'set answer as correct',
-    deleteAnswer: 'delete answer',
+    createAnswer: 'createAnswer',
+    getAnswers: 'getAnswers',
+    updateAnswer: 'updateAnswer',
+    setAnswerAsCorrect: 'setAnswerAsCorrect',
+    deleteAnswer: 'deleteAnswer',
+
+
 
 }
 
