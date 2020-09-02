@@ -3,47 +3,12 @@ const { CONNECTION_NAME } = require('../constants')
 
 const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
+const { SocketEvents, SocketActions } = require('./constants')
 
 const { createExam, getExams, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
 const { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer } = require('../controllers/answer')
 
-const SocketEvents = {
-
-    CONNECTION: 'connection',
-    ERROR: 'error',
-    DISCONNECT: 'disconnect',
-    DISCONNECTING: 'disconnecting',
-
-    MESSAGE: 'message',
-
-}
-
-const SocketActions = {
-
-    login: 'login',
-    logout: 'logout',
-
-    connected: 'connected',
-    disconnected: 'disconnected',
-
-    createExam: 'create exam',
-    getExams: 'get exams',
-    updateExam: 'update exam',
-    deleteExam: 'delete exam',
-
-    createQuestion: 'create question',
-    getQuestions: 'get questions',
-    updateQuestion: 'update question',
-    deleteQuestion: 'delete question',
-
-    createAnswer: 'create answer',
-    getAnswers: 'get answers',
-    updateAnswer: 'update answer',
-    setAnswerAsCorrect: 'set answer as correct',
-    deleteAnswer: 'delete answer',
-
-}
 
 const listenEvents = ({ socket, io }) => {
 
