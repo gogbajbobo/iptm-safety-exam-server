@@ -3,7 +3,7 @@ const { CONNECTION_NAME } = require('../constants')
 
 const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
-const { SocketEvents, SocketActions } = require('./constants')
+const { SocketEvents, SocketActions, SocketActionsRoles } = require('./constants')
 
 const { createExam, getExams, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
@@ -55,14 +55,27 @@ const messageEventHandler = ({ socket, io }) => {
 
     socket.on(SocketEvents.MESSAGE, (message, ack) => {
 
+        const { roles } = socket.user
         const { action, payload } = message
+        const requiredRoles = SocketActionsRoles[action]
 
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
 
-        if (connection.isConnected)
-            return actionsHandler({ action, payload, ack })
+        if (!roles)
+            return ack({ error: 'user w/o roles' })
 
-        ack({ error: 'database is not connected' })
+        if (!requiredRoles.some(role => roles.includes(role))) {
+
+            log.error(`user ${ socket.user } have no required roles for ${ action }`)
+            io.emit('error', { code: 403, message: 'Forbidden' })
+            return ack({ error: 'Forbidden' })
+
+        }
+
+        if (!connection.isConnected)
+            return ack({ error: 'database is not connected' })
+
+        return actionsHandler({ action, payload, ack })
 
     })
 
