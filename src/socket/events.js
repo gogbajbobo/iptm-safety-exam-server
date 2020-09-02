@@ -60,7 +60,7 @@ const messageEventHandler = ({ socket, io }) => {
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
 
         if (connection.isConnected)
-            return actionsHandler(action, payload, ack)
+            return actionsHandler({ action, payload, ack })
 
         ack({ error: 'database is not connected' })
 
@@ -68,7 +68,7 @@ const messageEventHandler = ({ socket, io }) => {
 
 }
 
-const actionsHandler = (action, payload, ack) => {
+const actionsHandler = ({ action, payload, ack }) => {
 
     switch (action) {
 
