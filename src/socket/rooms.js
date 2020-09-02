@@ -1,7 +1,7 @@
 const SocketRooms = {
 
     ADMIN: 'admin',
-    USER: 'user',
+    EXAMINEE: 'examinee',
 
 }
 
@@ -12,7 +12,7 @@ const socketRoomAssignment = socket => {
     if (!user) return
 
     if (user.roles.includes('admin')) socket.join(SocketRooms.ADMIN)
-    if (user.roles.includes('user')) socket.join(SocketRooms.USER)
+    if (user.roles.includes('examinee')) socket.join(SocketRooms.EXAMINEE)
 
 }
 
