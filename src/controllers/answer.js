@@ -1,9 +1,10 @@
 const typeorm = require('typeorm')
 const Answer = require('../datamodel/_model_names').answer
 const { requestHandler } = require('./_helper')
+const { CONNECTION_NAME } = require('../constants')
 
 
-const AnswerRepository = () => typeorm.getRepository(Answer, 'iptm-ses-db')
+const AnswerRepository = () => typeorm.getRepository(Answer, CONNECTION_NAME)
 
 const createAnswer = (answer, ack) => requestHandler(() => AnswerRepository().save(answer), ack)
 

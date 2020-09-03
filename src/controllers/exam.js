@@ -1,9 +1,10 @@
 const typeorm = require('typeorm')
 const Exam = require('../datamodel/_model_names').exam
 const { requestHandler } = require('./_helper')
+const { CONNECTION_NAME } = require('../constants')
 
 
-const ExamRepository = () => typeorm.getRepository(Exam, 'iptm-ses-db')
+const ExamRepository = () => typeorm.getRepository(Exam, CONNECTION_NAME)
 
 const getExams = ack => requestHandler(() => ExamRepository().find(), ack)
 

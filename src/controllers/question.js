@@ -2,9 +2,10 @@ const typeorm = require('typeorm')
 const Question = require('../datamodel/_model_names').question
 const { requestHandler } = require('./_helper')
 const userRoles = require('../datamodel/_user_roles')
+const { CONNECTION_NAME } = require('../constants')
 
 
-const QuestionRepository = () => typeorm.getRepository(Question, 'iptm-ses-db')
+const QuestionRepository = () => typeorm.getRepository(Question, CONNECTION_NAME)
 
 const createQuestion = (question, ack) => requestHandler(() => QuestionRepository().save(question), ack)
 
