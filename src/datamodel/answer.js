@@ -10,6 +10,7 @@ const Schema = new EntitySchema ({
         id: { type: Number, primary: true, generated: true },
         text: { type: String },
         isCorrect: { type: Boolean, default: false },
+        questionId: { type: String },
     },
     relations: {
         question: {
