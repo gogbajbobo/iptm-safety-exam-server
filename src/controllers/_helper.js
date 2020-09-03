@@ -1,6 +1,6 @@
 const requestHandler = (requestPromise, ack) => {
 
-    return requestPromise
+    return requestPromise()
         .then(payload => ack({ payload }))
         .catch(error => ack({ error }))
 

@@ -5,13 +5,13 @@ const { requestHandler } = require('./_helper')
 
 const ExamRepository = () => typeorm.getRepository(Exam, 'iptm-ses-db')
 
-const getExams = ack => requestHandler(ExamRepository().find(), ack)
+const getExams = ack => requestHandler(() => ExamRepository().find(), ack)
 
-const createExam = (exam, ack) => requestHandler(ExamRepository().save(exam), ack)
+const createExam = (exam, ack) => requestHandler(() => ExamRepository().save(exam), ack)
 
-const updateExam = (exam, ack) => requestHandler(ExamRepository().save(exam), ack)
+const updateExam = (exam, ack) => requestHandler(() => ExamRepository().save(exam), ack)
 
-const deleteExam = (id, ack) => requestHandler(ExamRepository().delete(id), ack)
+const deleteExam = (id, ack) => requestHandler(() => ExamRepository().delete(id), ack)
 
 
 module.exports = { getExams, createExam, updateExam, deleteExam }

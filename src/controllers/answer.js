@@ -5,22 +5,22 @@ const { requestHandler } = require('./_helper')
 
 const AnswerRepository = () => typeorm.getRepository(Answer, 'iptm-ses-db')
 
-const createAnswer = (answer, ack) => requestHandler(AnswerRepository().save(answer), ack)
+const createAnswer = (answer, ack) => requestHandler(() => AnswerRepository().save(answer), ack)
 
-const getAnswers = (filter, ack) => requestHandler(AnswerRepository().find(filter), ack)
+const getAnswers = (filter, ack) => requestHandler(() => AnswerRepository().find(filter), ack)
 
-const updateAnswer = (answer, ack) => requestHandler(AnswerRepository().save(answer), ack)
+const updateAnswer = (answer, ack) => requestHandler(() => AnswerRepository().save(answer), ack)
 
 const setAnswerAsCorrect = (answer, ack) => {
 
     const { id, question } = answer
     AnswerRepository().find({ question })
         .then(answers => answers.map(a => ({ ...a, isCorrect: a.id === id })))
-        .then(answers => requestHandler(AnswerRepository().save(answers), ack))
+        .then(answers => requestHandler(() => AnswerRepository().save(answers), ack))
 
 }
 
-const deleteAnswer = (id, ack) => requestHandler(AnswerRepository().delete(id), ack)
+const deleteAnswer = (id, ack) => requestHandler(() => AnswerRepository().delete(id), ack)
 
 
 module.exports = { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer }
