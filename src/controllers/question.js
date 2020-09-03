@@ -16,8 +16,20 @@ const getQuestions = ({ role, filter }, ack) => requestHandler(() => {
     if (role === userRoles.admin)
         return QuestionRepository().find(filter)
 
-    if (role === userRoles.examinee)
-        return QuestionRepository().find(filter).orderBy('RAND()').limit(10)
+    if (role === userRoles.examinee) {
+
+        const findFilter = { where: filter, order: 'RAND()', take: 10 }
+
+        return QuestionRepository().createQueryBuilder()
+            .where(`examId = :exam`, filter)
+            .orderBy('RAND()')
+            .limit(10)
+            .getMany()
+
+        // http://jan.kneschke.de/projects/mysql/order-by-rand/
+
+    }
+
 
     return Promise.reject(new Error('incomplete request'))
 
