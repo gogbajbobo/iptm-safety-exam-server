@@ -5,7 +5,7 @@ const { log } = require('../services/logger')
 const { SocketRooms } = require('../socket/rooms')
 const { SocketEvents, SocketActions, SocketActionsRoles } = require('./constants')
 
-const { createExam, getExams, updateExam, deleteExam } = require('../controllers/exam')
+const { createExam, getExams, getExamById, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
 const { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer } = require('../controllers/answer')
 
@@ -90,6 +90,7 @@ const actionsHandler = ({ action, payload, ack }) => {
 
         case SocketActions.createExam:          return createExam(payload, ack)
         case SocketActions.getExams:            return getExams(ack)
+        case SocketActions.getExamById:         return getExamById(payload, ack)
         case SocketActions.updateExam:          return updateExam(payload, ack)
         case SocketActions.deleteExam:          return deleteExam(payload, ack)
 

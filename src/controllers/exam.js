@@ -8,6 +8,8 @@ const ExamRepository = () => typeorm.getRepository(Exam, CONNECTION_NAME)
 
 const getExams = ack => requestHandler(() => ExamRepository().find(), ack)
 
+const getExamById = (id, ack) => requestHandler(() => ExamRepository().findOne({ id }), ack)
+
 const createExam = (exam, ack) => requestHandler(() => ExamRepository().save(exam), ack)
 
 const updateExam = (exam, ack) => requestHandler(() => ExamRepository().save(exam), ack)
@@ -15,4 +17,4 @@ const updateExam = (exam, ack) => requestHandler(() => ExamRepository().save(exa
 const deleteExam = (id, ack) => requestHandler(() => ExamRepository().delete(id), ack)
 
 
-module.exports = { getExams, createExam, updateExam, deleteExam }
+module.exports = { getExams, getExamById, createExam, updateExam, deleteExam }

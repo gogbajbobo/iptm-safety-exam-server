@@ -18,6 +18,7 @@ const SocketActions = {
 
     createExam: 'createExam',
     getExams: 'getExams',
+    getExamById: 'getExamById',
     updateExam: 'updateExam',
     deleteExam: 'deleteExam',
 
