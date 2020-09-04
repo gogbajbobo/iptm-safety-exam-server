@@ -64,6 +64,9 @@ const messageEventHandler = ({ socket, io }) => {
         if (!roles)
             return ack({ error: 'user w/o roles' })
 
+        if (!requiredRoles)
+            return ack({ error: `no required roles for ${ action }` })
+
         if (!requiredRoles.some(role => roles.includes(role))) {
 
             log.error(`user ${ socket.user } have no required roles for ${ action }`)
