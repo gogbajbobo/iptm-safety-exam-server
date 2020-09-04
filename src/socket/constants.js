@@ -35,27 +35,29 @@ const SocketActions = {
 }
 
 const anyRoles = Object.values(userRoles)
+const { admin, examinee } = userRoles
 
 const SocketActionsRoles = {
 
     connected: anyRoles,
     disconnected: anyRoles,
 
-    createExam: [ userRoles.admin ],
-    getExams: [ userRoles.admin, userRoles.examinee ],
-    updateExam: [ userRoles.admin ],
-    deleteExam: [ userRoles.admin ],
+    createExam: [ admin ],
+    getExams: [ admin, examinee ],
+    getExamById: [ examinee ],
+    updateExam: [ admin ],
+    deleteExam: [ admin ],
 
-    createQuestion: [ userRoles.admin ],
-    getQuestions: [ userRoles.admin, userRoles.examinee ],
-    updateQuestion: [ userRoles.admin ],
-    deleteQuestion: [ userRoles.admin ],
+    createQuestion: [ admin ],
+    getQuestions: [ admin, examinee ],
+    updateQuestion: [ admin ],
+    deleteQuestion: [ admin ],
 
-    createAnswer: [ userRoles.admin ],
-    getAnswers: [ userRoles.admin ],
-    updateAnswer: [ userRoles.admin ],
-    setAnswerAsCorrect: [ userRoles.admin ],
-    deleteAnswer: [ userRoles.admin ],
+    createAnswer: [ admin ],
+    getAnswers: [ admin ],
+    updateAnswer: [ admin ],
+    setAnswerAsCorrect: [ admin ],
+    deleteAnswer: [ admin ],
 
 }
 
