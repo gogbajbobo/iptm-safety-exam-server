@@ -23,5 +23,21 @@ const setAnswerAsCorrect = (answer, ack) => {
 
 const deleteAnswer = (id, ack) => requestHandler(() => AnswerRepository().delete(id), ack)
 
+const checkAnswers = (answers, ack) => requestHandler(() => {
 
-module.exports = { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer }
+    return AnswerRepository().createQueryBuilder()
+        .where('questionId IN (:...questionsIds)', { questionsIds: Object.keys(answers) })
+        .andWhere('id IN (:...ids)', { ids: Object.values(answers) })
+        .andWhere('isCorrect = :isCorrect', { isCorrect: true })
+        .getCount()
+
+}, ack)
+
+module.exports = {
+    createAnswer,
+    getAnswers,
+    updateAnswer,
+    setAnswerAsCorrect,
+    deleteAnswer,
+    checkAnswers
+}

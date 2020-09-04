@@ -32,6 +32,7 @@ const SocketActions = {
     updateAnswer: 'updateAnswer',
     setAnswerAsCorrect: 'setAnswerAsCorrect',
     deleteAnswer: 'deleteAnswer',
+    checkAnswers: 'checkAnswers',
 
 }
 
@@ -59,6 +60,7 @@ const SocketActionsRoles = {
     updateAnswer: [ admin ],
     setAnswerAsCorrect: [ admin ],
     deleteAnswer: [ admin ],
+    checkAnswers: [ examinee ],
 
 }
 
