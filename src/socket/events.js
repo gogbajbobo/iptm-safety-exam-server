@@ -7,7 +7,7 @@ const { SocketEvents, SocketActions, SocketActionsRoles } = require('./constants
 
 const { createExam, getExams, getExamById, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
-const { createAnswer, getAnswers, updateAnswer, setAnswerAsCorrect, deleteAnswer } = require('../controllers/answer')
+const AnswerController = require('../controllers/answer')
 
 
 const listenEvents = ({ socket, io }) => {
@@ -103,11 +103,11 @@ const actionsHandler = ({ action, payload, ack }) => {
         case SocketActions.updateQuestion:      return updateQuestion(payload, ack)
         case SocketActions.deleteQuestion:      return deleteQuestion(payload, ack)
 
-        case SocketActions.createAnswer:        return createAnswer(payload, ack)
-        case SocketActions.getAnswers:          return getAnswers(payload, ack)
-        case SocketActions.updateAnswer:        return updateAnswer(payload, ack)
-        case SocketActions.setAnswerAsCorrect:  return setAnswerAsCorrect(payload, ack)
-        case SocketActions.deleteAnswer:        return deleteAnswer(payload, ack)
+        case SocketActions.createAnswer:        return AnswerController.createAnswer(payload, ack)
+        case SocketActions.getAnswers:          return AnswerController.getAnswers(payload, ack)
+        case SocketActions.updateAnswer:        return AnswerController.updateAnswer(payload, ack)
+        case SocketActions.setAnswerAsCorrect:  return AnswerController.setAnswerAsCorrect(payload, ack)
+        case SocketActions.deleteAnswer:        return AnswerController.deleteAnswer(payload, ack)
 
         default:                                return ack({ error: 'incorrect action' })
 
