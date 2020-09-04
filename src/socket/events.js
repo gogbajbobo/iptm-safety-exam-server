@@ -109,7 +109,7 @@ const actionsHandler = ({ action, payload, ack }) => {
         case SocketActions.setAnswerAsCorrect:  return AnswerController.setAnswerAsCorrect(payload, ack)
         case SocketActions.deleteAnswer:        return AnswerController.deleteAnswer(payload, ack)
 
-        default:                                return ack({ error: 'incorrect action' })
+        default:                                return ack({ error: `have no handler for action ${ action }` })
 
     }
 
