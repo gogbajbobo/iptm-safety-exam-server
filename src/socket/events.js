@@ -57,6 +57,10 @@ const messageEventHandler = ({ socket, io }) => {
 
         const { roles } = socket.user
         const { action, payload } = message
+
+        if (!SocketActions[action])
+            return ack({ error: 'unknown action' })
+
         const requiredRoles = SocketActionsRoles[action]
 
         log.debug(`socket ${ socket.id } ${ SocketEvents.MESSAGE }: ${ action }`)
