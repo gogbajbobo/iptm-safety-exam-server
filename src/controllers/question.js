@@ -34,24 +34,16 @@ const getQuestionsToTakeExam = examFilter => {
         .orderBy('RAND()')
         .limit(10)
         .getMany()
-        .then(questions => {
+        .then(questions => Promise.all(questions.map(q => {
 
-            const questionsIds = questions.map(q => q.id)
-            return AnswerRepository().createQueryBuilder()
-                .where('questionId IN (:...questionsIds)', { questionsIds })
-                .getMany()
-                .then(answers => {
+                return AnswerRepository().createQueryBuilder()
+                    .where(`questionId = :question`, { question: q.id })
+                    .getMany()
+                    .then(blankedAnswers)
+                    .then(answers => ({ ...q, answers }))
 
-                    return questions.map(q => {
-
-                        const filteredAnswers = answers.filter(ba => ba['questionId'] === q.id)
-                        return { ...q, answers: blankedAnswers(filteredAnswers) }
-
-                    })
-
-                })
-
-        })
+            }))
+        )
 
 }
 
