@@ -34,6 +34,8 @@ const SocketActions = {
     deleteAnswer: 'deleteAnswer',
     checkAnswers: 'checkAnswers',
 
+    getExamResults: 'getExamResults',
+
 }
 
 const anyRoles = Object.values(userRoles)
@@ -61,6 +63,8 @@ const SocketActionsRoles = {
     setAnswerAsCorrect: [ admin ],
     deleteAnswer: [ admin ],
     checkAnswers: [ examinee ],
+
+    getExamResults: [ admin ],
 
 }
 

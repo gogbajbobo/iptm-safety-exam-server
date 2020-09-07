@@ -8,6 +8,7 @@ const { SocketEvents, SocketActions, SocketActionsRoles } = require('./constants
 const { createExam, getExams, getExamById, updateExam, deleteExam } = require('../controllers/exam')
 const { createQuestion, getQuestions, updateQuestion, deleteQuestion } = require('../controllers/question')
 const AnswerController = require('../controllers/answer')
+const { getExamResults } = require('../controllers/examResult')
 
 
 const listenEvents = ({ socket, io }) => {
@@ -109,6 +110,8 @@ const actionsHandler = ({ action, payload, ack }) => {
         case SocketActions.setAnswerAsCorrect:  return AnswerController.setAnswerAsCorrect(payload, ack)
         case SocketActions.deleteAnswer:        return AnswerController.deleteAnswer(payload, ack)
         case SocketActions.checkAnswers:        return AnswerController.checkAnswers(payload, ack)
+
+        case SocketActions.getExamResults:      return getExamResults(ack)
 
         default:                                return ack({ error: `have no handler for action ${ action }` })
 
