@@ -16,7 +16,7 @@ const Schema = new EntitySchema ({
             type: 'many-to-one',
             onDelete: 'CASCADE',
             nullable: false,
-        }
+        },
     },
 })
 

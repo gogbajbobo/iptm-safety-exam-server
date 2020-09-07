@@ -55,11 +55,7 @@ const getQuestionsToTakeExam = examFilter => {
 
 }
 
-const blankedAnswers = answers => {
-    return answers.map(a => {
-        return { ...a, isCorrect: undefined, questionId: undefined }
-    })
-}
+const blankedAnswers = answers => answers.map(a => ({ ...a, isCorrect: undefined }))
 
 const updateQuestion = (question, ack) => requestHandler(() => QuestionRepository().save(question), ack)
 
